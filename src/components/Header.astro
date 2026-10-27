@@ -1,0 +1,4 @@
+---
+import Logo from './Logo.astro';import Button from './Button.astro';import {navigation} from '../data/site';
+---
+<header id="site-header"><div class="header-inner"><a href="/#accueil" class="brand-link" aria-label="Aurélie Couffort — Accueil"><Logo/></a><button class="menu-toggle" aria-controls="navigation" aria-expanded="false" hidden><span>Menu</span><span class="menu-lines" aria-hidden="true"></span></button><nav id="navigation" aria-label="Navigation principale">{navigation.map(([label,href])=><a href={href}>{label}</a>)}<Button href="/#contact">Prendre rendez-vous</Button></nav></div></header>
