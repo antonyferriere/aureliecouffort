@@ -35,7 +35,7 @@ Les expertises sont des données et un composant réutilisables pour de futures 
 ## Configuration avant publication
 `.env.example` documente `SITE_URL` et `PUBLIC_INDEXABLE`. Par défaut : noindex/nofollow, robots Disallow, sitemap sans URL. Une production indexable nécessite explicitement `PUBLIC_INDEXABLE=true` ET une `SITE_URL` HTTPS validée. Le build rejette l’activation sans URL. Ne pas activer avant résolution de CONTENT_TODO.md. Héberger la préproduction avec restriction d’accès si confidentialité nécessaire : robots n’est pas un contrôle d’accès.
 
-Le lien de rendez-vous mène actuellement à `#contact`. Les données du cabinet sont nulles, jamais inventées. Renseigner les coordonnées validées dans `src/data/site.ts`, puis remplacer les états d’attente et connecter le CTA. Ne pas collecter de données de santé via un formulaire générique.
+Les liens de rendez-vous sont centralisés dans `src/data/site.ts` et pointent vers la réservation Doctolib. Les coordonnées, tarifs, horaires, accès et qualifications proviennent des pièces fournies le 17 novembre 2026. Les informations non documentées restent à confirmer. Ne pas collecter de données de santé via un formulaire générique.
 
 Le host `terminal.local` est autorisé uniquement dans la configuration de développement pour l’aperçu de travail. Aucun déploiement automatique ni workflow FTP n’est ajouté.
 

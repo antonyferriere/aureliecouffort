@@ -22,3 +22,7 @@ Entrée courte au scroll par IntersectionObserver, aucun texte caché. Header st
 
 ## Identité
 Neuf SVG (horizontal, vertical, monogramme × sauge, graphite, monochrome), favicon simplifié SVG + PNG 16/32/48/180. À remplacer après validation d’Aurélie. Les fichiers SVG logo utilisent des polices de repli pour le texte : convertir en contours lors de la finalisation imprimerie.
+
+
+## Ajustements du 17 novembre 2026
+Le hero utilise une hauteur minimale de 100svh et grandit si le contenu le nécessite sur écran court. Styles dédiés dans `src/styles/hero.css`. La galerie conserve les photos de repérage sans recadrage destructif et propose des agrandissements natifs.

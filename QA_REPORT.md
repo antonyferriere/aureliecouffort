@@ -1,3 +1,33 @@
+# Contrôle des corrections — 17 novembre 2026
+
+## Audit du brief et résultat
+- Hero : pleine largeur et hauteur minimale 100svh, suppression du plafond de hauteur ; entrées Enfant/Sport visibles sur les formats usuels, composition mobile dédiée, en-tête transparent puis fond au défilement.
+- DA Sauge signature, typographies et architecture éditoriale conservées. Parallaxe des principales photos et cards avec désactivation mobile/reduced motion.
+- Trois photos authentiques, six variantes WebP ; légendes, textes alternatifs et agrandissement natif.
+- Tous les CTA « Prendre rendez-vous » et « Consulter pour… » rejoignent la réservation fournie. Profil Doctolib distinct ; aucun widget ni chargement tiers automatique.
+- Informations du cabinet et données structurées locales complétées à partir des captures fournies. Pages légales et confidentialité actualisées sans inventer l’hébergeur ni les informations juridiques absentes.
+- Le brief autorise les contenus en attente : portrait, détails cliniques et expérience sportive non documentés restent identifiés dans CONTENT_TODO.md. La conformité éditoriale complète nécessite leur validation.
+
+## Vérifications exécutées
+- Astro check : zéro erreur, avertissement ou indication ; lint, build et 7 tests réussis.
+- Chrome, cadres CSS 320×568, 360×800, 390×844, 430×932, 768×1024, 1024×768, 1280×800, 1440×900, 1920×1080, 1440×600 : scrollWidth = clientWidth (largeur utile diminuée de 15 px par la barre de défilement).
+- Hero égal à la hauteur du viewport sur les formats usuels. À 320×568 et 1440×600, hauteur naturelle respectivement 703 et 666 px pour éviter le rognage du contenu.
+- Inspection visuelle du hero mobile/desktop et de la galerie. Menu mobile ouverture/fermeture par Escape vérifiés ; FAQ réservation ouverte avec le bon lien.
+- Aucun problème applicatif observé ; messages d’erreur de l’extension Chrome exclus du diagnostic du site.
+- Captures récentes : docs/screenshots/2026-11-17/. Les autres captures sont historiques.
+
+## Limites
+Contrôles en Chrome et viewports CSS, sans appareils physiques ni Safari/Firefox. Pas de score Lighthouse ni certification WCAG annoncés. Reduced motion inspecté dans le code. Pas de réservation réelle effectuée. Aucun déploiement de production. Le serveur Astro de développement était incompatible avec le conteneur de contrôle ; le build statique a été inspecté via l’aperçu pris en charge.
+
+## Sources
+Brief fourni « Texte collé(1).txt », direction artistique, trois photos et trois captures Doctolib du 17 novembre 2026.
+Profil : https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort
+Réservation : https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort/booking?source=profile
+
+---
+
+## Archive du contrôle initial
+
 # Rapport de contrôle — 27 octobre 2026
 
 ## Résultat
