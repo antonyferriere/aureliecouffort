@@ -26,7 +26,7 @@ test('development cannot be indexed and sitemap contains no fabricated domain',(
 });
 test('booking CTAs use the supplied Doctolib destination without loading a widget',()=>{
  const booking='https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort/booking?source=profile';
- const links=[...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].filter(([,attrs,label])=>/Prendre rendez-vous|Consulter pour/.test(label));
+ const links=[...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].filter(([,,label])=>/Prendre rendez-vous|Consulter pour/.test(label));
  assert.ok(links.length>=5);
  for(const [,attrs] of links){assert.ok(attrs.includes(`href="${booking}"`));assert.match(attrs,/target="_blank"/);assert.match(attrs,/rel="noopener noreferrer"/);}
  assert.ok(!/Prise de rendez-vous bientôt disponible|Le lien de réservation sera ajouté/.test(html));

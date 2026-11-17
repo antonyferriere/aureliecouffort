@@ -1,4 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {cabinet} from '../data/site';
 ---
-<Layout title="Mentions légales — Aurélie Couffort"><article class="wrap legal"><p class="eyebrow">Version de travail</p><h1>Mentions légales</h1><p>Ces mentions sont incomplètes. Cette version de développement n’est pas prête pour une publication publique.</p><h2>Éditeur</h2><p>Aurélie Couffort — titre professionnel, adresse d’exercice, coordonnées, identifiants professionnels, inscription ordinale et responsable de publication à confirmer.</p><h2>Hébergement</h2><p>Prestataire, raison sociale, adresse et coordonnées de l’hébergeur à compléter avant publication.</p><h2>Informations de santé</h2><p>Les contenus sont proposés pour relecture. Ils ne remplacent pas une consultation et doivent être validés par la praticienne avant publication.</p><h2>Crédits</h2><p>Photographies d’ambiance générées par IA pour ce projet : elles ne représentent pas Aurélie, son cabinet ou des patients réels. Monogramme AC provisoire, soumis à validation. Polices Fraunces et Manrope sous licence SIL Open Font License. Illustration anatomique : source et statut dans ASSETS.md.</p><a class="button" href="/">Retour à l’accueil</a></article></Layout>
+<Layout title="Mentions légales — Aurélie Couffort">
+<article class="wrap legal">
+<p class="eyebrow">Informations du site</p><h1>Mentions légales</h1>
+<p>Dernière mise à jour : {cabinet.verifiedOn}.</p>
+<h2>Identité de la praticienne</h2>
+<p><strong>{cabinet.name} — {cabinet.title}</strong><br/>{cabinet.address}<br/>{cabinet.postalCode} {cabinet.city}<br/>Téléphone : <a href={cabinet.phoneHref}>{cabinet.phone}</a><br/>Portable professionnel : <a href={cabinet.mobileHref}>{cabinet.mobile}</a><br/>Numéro RPPS : {cabinet.rpps}.</p>
+<p>Diplôme d’État de pédicure-podologue obtenu en 2012 à l’École de Podologie de Marseille (EPM). Profession réglementée en France, relevant de l’Ordre national des pédicures-podologues.</p>
+<p class="pending">À compléter avant publication : statut et dénomination juridique de l’éditeur, SIREN/SIRET, adresse électronique professionnelle, références d’inscription ordinale et désignation du responsable de publication. Ces informations ne sont pas déduites du profil Doctolib.</p>
+<h2>Hébergement</h2>
+<p>Le nom ou la raison sociale, l’adresse et le numéro de téléphone de l’hébergeur du site seront renseignés une fois l’hébergement confirmé. Doctolib est le service externe de réservation lié depuis ce site ; il n’est pas présenté comme son hébergeur.</p>
+<h2>Prise de rendez-vous et liens externes</h2>
+<p>Les boutons de prise de rendez-vous ouvrent <a href={cabinet.bookingUrl} target="_blank" rel="noopener noreferrer">Doctolib (nouvel onglet)</a>. Les disponibilités, motifs de consultation et conditions du service sont présentés sur cette plateforme. Le lien d’itinéraire ouvre Google Maps. Aucune carte ni interface de réservation n’est intégrée dans les pages du site.</p>
+<h2>Informations de santé et tarifs</h2>
+<p>Les informations du site ne remplacent pas une consultation ni un avis individualisé. Les textes cliniques signalés comme provisoires sont en cours de validation par la praticienne. Les tarifs et informations pratiques sont issus du profil fourni le {cabinet.verifiedOn} ; ils sont à confirmer auprès du cabinet au moment de la réservation. Aucun remboursement ni résultat de soins n’est garanti.</p>
+<h2>Photographies et crédits</h2>
+<p>Les photographies de la salle, de l’entrée et de l’extérieur du cabinet ont été fournies pour ce projet. Les droits de diffusion, notamment l’origine de la vue extérieure, restent à confirmer avant publication publique. Les autres photographies sont des illustrations d’ambiance générées par IA : elles ne représentent ni Aurélie ni des patients réels. Le monogramme AC est provisoire.</p>
+<p>Polices Fraunces et Manrope : licence SIL Open Font License. Illustration anatomique historique : Henry Vandyke Carter, Gray’s Anatomy, édition 1918, planche 290, domaine public ; référence détaillée dans la documentation du projet.</p>
+<p class="pending">Version de développement : les éléments juridiques encore manquants ci-dessus doivent être complétés avant mise en ligne publique.</p>
+<a class="text-link" href="/confidentialite/">Protection des données personnelles →</a><br/><a class="button" href="/">Retour à l’accueil</a>
+</article></Layout>

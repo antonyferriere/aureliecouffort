@@ -1,4 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {cabinet} from '../data/site';
 ---
-<Layout title="Confidentialité — Aurélie Couffort"><article class="wrap legal"><p class="eyebrow">Version de travail</p><h1>Confidentialité</h1><h2>Un site sans formulaire de santé</h2><p>Cette version ne propose ni compte ni formulaire de collecte. Aucune donnée de santé ne doit être transmise via ce site.</p><h2>Cookies et services externes</h2><p>Aucun outil d’analyse d’audience, publicité, carte intégrée ou vidéo externe n’est chargé par le code du site. Les polices et les images sont hébergées avec le site. Aucun cookie ou stockage local n’est utilisé par ses fonctionnalités.</p><h2>Hébergement et journaux techniques</h2><p>L’hébergeur, ses journaux techniques, leurs finalités et durées de conservation doivent être documentés une fois l’hébergement choisi. Cette page sera complétée avant publication.</p><h2>Vos droits et votre contact</h2><p>Le responsable de traitement, le contact pour l’exercice des droits et les éventuels prestataires de réservation restent à préciser avec Aurélie.</p><a class="button" href="/">Retour à l’accueil</a></article></Layout>
+<Layout title="Confidentialité — Aurélie Couffort">
+<article class="wrap legal">
+<p class="eyebrow">Vos données</p><h1>Confidentialité</h1><p>Dernière mise à jour : {cabinet.verifiedOn}.</p>
+<h2>La consultation de ce site</h2>
+<p>Le site présente le cabinet et ses informations pratiques. Il ne propose ni compte utilisateur, ni formulaire, ni messagerie de santé. Les informations saisies lors d’une réservation sur Doctolib ne transitent pas par ce site vitrine.</p>
+<h2>Cookies et ressources</h2>
+<p>Le code de ce site n’utilise ni cookies, ni stockage local, ni outil de mesure d’audience, ni traceur publicitaire. Les polices et les images sont servies avec le site. Aucune carte Google Maps, vidéo externe ou interface Doctolib n’est embarquée ; aucun de ces services n’est chargé automatiquement.</p>
+<h2>Prise de rendez-vous sur Doctolib</h2>
+<p>Lorsque vous cliquez sur un lien de réservation ou de profil, Doctolib s’ouvre dans un nouvel onglet. Votre navigateur se connecte alors à ce service externe. Les données que vous y renseignez sont traitées dans le cadre de la réservation et du suivi, selon les rôles respectifs du cabinet et de Doctolib décrits dans leurs informations de protection des données.</p>
+<p>Consultez la <a href="https://legal.doctolib.fr/privacy-policy-B2C-FR" target="_blank" rel="noopener noreferrer">politique de confidentialité de Doctolib (nouvel onglet)</a> pour connaître les traitements, les destinataires et les modalités d’exercice de vos droits. Ce site ne reçoit pas vos réponses au parcours de réservation.</p>
+<h2>Itinéraire sur Google Maps</h2>
+<p>Le lien d’itinéraire ouvre Google Maps dans un nouvel onglet, uniquement à votre demande. Il transmet l’adresse publique du cabinet comme destination, sans demander votre géolocalisation sur ce site. Le service externe applique alors ses propres règles de confidentialité.</p>
+<h2>Hébergement et journaux techniques</h2>
+<p>L’accès au site implique des échanges techniques avec son hébergeur, notamment l’adresse IP et les informations nécessaires à la livraison des pages. L’hébergeur n’étant pas encore confirmé, ses éventuels journaux, leurs finalités, bases légales, destinataires et durées de conservation restent à documenter. Aucune durée de conservation n’est supposée ici.</p>
+<h2>Contacter le cabinet et exercer vos droits</h2>
+<p>Pour une question concernant vos données traitées par le cabinet, vous pouvez contacter {cabinet.name} au <a href={cabinet.phoneHref}>{cabinet.phone}</a> ou écrire au {cabinet.address}, {cabinet.postalCode} {cabinet.city}. L’identité juridique du responsable de traitement et le contact électronique dédié seront précisés avant publication.</p>
+<p>Selon le traitement concerné et les conditions applicables, vous disposez de droits d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité. Pour les traitements propres à Doctolib, utilisez les contacts indiqués dans sa politique. Vous pouvez également adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL (nouvel onglet)</a>.</p>
+<p class="pending">Cette page décrit la version actuelle du site. Les informations d’hébergement et les pratiques réelles du cabinet concernant la gestion des données doivent être complétées avant publication publique.</p>
+<a class="button" href="/">Retour à l’accueil</a>
+</article></Layout>
