@@ -1,0 +1,19 @@
+---
+const photos = [
+  {name:'cabinet-interieur',width:586,height:700,title:'La salle de consultation',alt:'Le cabinet d’Aurélie Couffort : bureau, sièges d’accueil et fauteuil de pédicurie.'},
+  {name:'cabinet-entree',width:604,height:700,title:'L’entrée du cabinet',alt:'La porte verte du cabinet et la plaque professionnelle d’Aurélie Couffort.'},
+  {name:'cabinet-exterieur',width:954,height:581,title:'Repérer le bâtiment',alt:'Vue extérieure du bâtiment et de son portail depuis l’avenue Pierre Sauvaigo.'},
+];
+---
+<div class="cabinet-intro"><p class="eyebrow">Bienvenue au cabinet</p><h2>Un lieu pour vous accueillir,<br/><em>prendre le temps d’échanger.</em></h2></div>
+<div class="cabinet-gallery">
+  {photos.map(photo=><figure>
+    <a href={`/images/${photo.name}-${photo.width}.webp`} target="_blank" rel="noopener noreferrer" aria-label={`Agrandir : ${photo.title} (nouvel onglet)`}>
+      <img src={`/images/${photo.name}-${photo.width}.webp`} srcset={`/images/${photo.name}-480.webp 480w, /images/${photo.name}-${photo.width}.webp ${photo.width}w`} sizes="(max-width:700px) 90vw, 40vw" width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async"/>
+    </a><figcaption>{photo.title}<span>Voir la photo ↗</span></figcaption>
+  </figure>)}
+</div>
+<style>
+.cabinet-intro{margin-bottom:35px}.cabinet-gallery{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-bottom:50px;align-items:start}.cabinet-gallery figure:first-child{grid-row:span 2}.cabinet-gallery figure{overflow:hidden;border:1px solid #365c4c25;border-radius:16px;background:var(--surface-container)}.cabinet-gallery a{display:block;overflow:hidden}.cabinet-gallery img{width:100%;height:240px;object-fit:contain;background:#e7e9df}.cabinet-gallery figure:first-child img{height:570px;object-fit:cover}.cabinet-gallery figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;font-size:12px;color:var(--primary)}.cabinet-gallery figcaption span{font-size:10px;white-space:nowrap}.cabinet-gallery a:focus-visible{outline-offset:-5px}.cabinet-gallery a:hover img{filter:brightness(1.04)}
+@media(max-width:700px){.cabinet-gallery{grid-template-columns:1fr;gap:20px;margin-bottom:30px}.cabinet-gallery figure:first-child{grid-row:auto}.cabinet-gallery figure:first-child img{height:auto;max-height:480px;object-fit:contain}.cabinet-gallery img{height:auto;max-height:360px}.cabinet-gallery figcaption{padding:12px;font-size:11px}}
+</style>

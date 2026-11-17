@@ -1,7 +1,7 @@
 # Sources et statut des assets
 
 ## Ambiances générées
-Outil Imagegen intégré, le 24 octobre 2026. Les WebP sont locaux, en 480/960/1440 (hero maximal 1086 px). Aucune photographie de personne réelle fournie, aucune image présentée comme Aurélie ou son cabinet.
+Outil Imagegen intégré, le 24 octobre 2026. Les WebP sont locaux, en 480/960/1440 (hero maximal 1086 px). Ces ambiances ne représentent ni Aurélie ni son cabinet. Les photos réelles du cabinet ci-dessous sont distinctes.
 
 - `hero-*` : photographie éditoriale de pieds nus adultes en marche sur parquet clair, pantalon ivoire, lumière douce et fond sauge ; visage absent.
 - `enfant-*` : jambes d’enfant non identifiable en marche, parquet naturel, palette ivoire/sauge ; aucune consultation représentée.
@@ -21,3 +21,6 @@ Fraunces / Manrope : paquets @fontsource-variable sous SIL OFL, licences distrib
 
 ## Sources éditoriales
 Direction artistique et questionnaire transmis, image de disposition jointe et moodboard. Aucun document source privé n’est copié dans le dépôt public.
+
+## Photographies du cabinet — 17 novembre 2026
+Trois images fournies par le porteur du projet pour cette intégration : salle de consultation (`170236`), entrée et plaque professionnelle (`170242`), extérieur et portail (`170252`). Exports WebP locaux : `cabinet-interieur-*`, `cabinet-entree-*`, `cabinet-exterieur-*`. Redimensionnement uniquement, sans agrandissement ni modification du contenu photographique. Affichage et ouverture de la photo complète, légendes et textes alternatifs distincts. La vue extérieure est un repère visuel, pas une carte embarquée ; origine/licence de cette vue et droits de diffusion à confirmer avant publication publique.
