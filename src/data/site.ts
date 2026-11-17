@@ -1,6 +1,8 @@
 export const cabinet = {
  name: 'Aurélie Couffort', title: 'Pédicure-podologue',
- address: null, phone: null, email: null, hours: null, bookingUrl: null,
+ address: null, phone: null, email: null, hours: null,
+ profileUrl: 'https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort',
+ bookingUrl: 'https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort/booking?source=profile',
 } as const;
 export const navigation = [
  ['Enfant', '/#podologie-enfant'], ['Sport', '/#podologie-sport'], ['Les soins', '/#soins'],
@@ -20,7 +22,7 @@ const clinical = 'Réponse clinique à rédiger et à valider avec Aurélie. Lor
 export const faq = [
  {name:"Pour mon enfant",questions:[['Quand consulter pour son enfant ?',clinical],['Comment se déroule un bilan chez l’enfant ?',"Le parcours proposé est présenté dans la section Consultation. Les modalités, les âges accueillis et les examens restent à confirmer."],['Les semelles sont-elles systématiquement nécessaires ?',"Non. Leur place éventuelle dépend d’une évaluation individuelle. Formulation à valider par Aurélie."],['Peut-on échanger sur les questions liées à la croissance ?',clinical]]},
  {name:'Pour ma pratique sportive',questions:[['Quel est l’intérêt d’un bilan dans un contexte sportif ?',clinical],['Comment se déroule un bilan sportif ?',"L’activité pratiquée et les besoins exprimés font partie de l’échange. Le déroulé précis reste à confirmer."],['Les semelles sont-elles utiles pour tous les sportifs ?',"Les semelles ne sont pas systématiques. Leur éventuelle indication relève d’une évaluation individuelle. Texte à valider."],['Quels sports peuvent être concernés ?',"Les disciplines accompagnées par Aurélie seront précisées après validation. Aucune spécialisation sportive n’est annoncée à ce stade."]]},
- {name:'En pratique',questions:[['Comment prendre rendez-vous ?',"Le lien de réservation et les coordonnées du cabinet seront disponibles après validation par Aurélie."],['Faut-il une ordonnance ?',"Modalités à confirmer auprès du cabinet selon la consultation envisagée."],['Combien de temps dure une consultation ?',"Durées à confirmer avec Aurélie selon le type de consultation."],['Quels sont les tarifs et les remboursements ?',"Tarifs, conventionnement et modalités de remboursement à renseigner avant publication. Aucun montant provisoire n’est affiché."]]},
+ {name:'En pratique',questions:[['Comment prendre rendez-vous ?',"Vous pouvez prendre rendez-vous en ligne sur Doctolib. Choisissez le motif adapté à votre consultation et un créneau disponible."],['Faut-il une ordonnance ?',"Modalités à confirmer auprès du cabinet selon la consultation envisagée."],['Combien de temps dure une consultation ?',"Durées à confirmer avec Aurélie selon le type de consultation."],['Quels sont les tarifs et les remboursements ?',"Tarifs, conventionnement et modalités de remboursement à renseigner avant publication. Aucun montant provisoire n’est affiché."]]},
 ];
 export const steps = [
  ['Échanger','Vos questions, votre quotidien et vos attentes sont le point de départ.'],

@@ -21,11 +21,13 @@ test('development cannot be indexed and sitemap contains no fabricated domain',(
  assert.ok(!readFileSync('dist/sitemap.xml','utf8').includes('<loc>'));
  assert.ok(!html.includes('application/ld+json'));
 });
-test('no false contact, third party tracking or fictional booking link',()=>{
- assert.ok(!/href="(?:tel:|mailto:|https:\/\/.*doctolib)/.test(html));
- assert.ok(!/google-analytics|gtag\(|facebook.net|maps.google/.test(html));
- assert.match(html,/Prise de rendez-vous bientôt disponible/);
- assert.match(html,/Images d’ambiance générées/);
+test('booking CTAs use the supplied Doctolib destination without loading a widget',()=>{
+ const booking='https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort/booking?source=profile';
+ const links=[...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].filter(([,attrs,label])=>/Prendre rendez-vous|Consulter pour/.test(label));
+ assert.ok(links.length>=5);
+ for(const [,attrs] of links){assert.ok(attrs.includes(`href="${booking}"`));assert.match(attrs,/target="_blank"/);assert.match(attrs,/rel="noopener noreferrer"/);}
+ assert.ok(!/Prise de rendez-vous bientôt disponible|Le lien de réservation sera ajouté/.test(html));
+ assert.ok(!/<iframe|google-analytics|gtag\(|facebook.net/.test(html));
 });
 test('responsive imagery and native disclosure controls remain accessible without JS',()=>{
  assert.ok((html.match(/<details/g)||[]).length>=19);

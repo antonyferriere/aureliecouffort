@@ -2,5 +2,6 @@
 import Icon from './Icon.astro';
 interface Props {href:string; secondary?:boolean; class?:string}
 const {href,secondary=false,class:className=''}=Astro.props;
+const external = /^https?:\/\//.test(href);
 ---
-<a href={href} class:list={['button',{'secondary':secondary},className]}><slot/><Icon/></a>
+<a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class:list={['button',{'secondary':secondary},className]}><slot/>{external && <span class="sr-only"> (nouvel onglet)</span>}<Icon/></a>
