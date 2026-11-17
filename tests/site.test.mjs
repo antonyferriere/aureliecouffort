@@ -19,7 +19,10 @@ test('development cannot be indexed and sitemap contains no fabricated domain',(
  assert.match(html,/name="robots" content="noindex,nofollow"/);
  assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
  assert.ok(!readFileSync('dist/sitemap.xml','utf8').includes('<loc>'));
- assert.ok(!html.includes('application/ld+json'));
+ const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
+ assert.equal(schema.address.addressLocality,'Saint-Laurent-du-Var');
+ assert.equal(schema.identifier.value,'10006131683');
+ assert.ok(!schema.url);
 });
 test('booking CTAs use the supplied Doctolib destination without loading a widget',()=>{
  const booking='https://www.doctolib.fr/pedicure-podologue/saint-laurent-du-var/aurelie-couffort/booking?source=profile';
