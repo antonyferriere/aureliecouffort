@@ -1,0 +1,51 @@
+/* Full-viewport opening. Natural height wins on short screens and at text zoom. */
+.home #site-header{position:fixed;inset:0 0 auto;background:transparent}
+.home #site-header.scrolled{background:rgb(246 241 234 / .95);backdrop-filter:blur(14px);box-shadow:0 1px 0 #365c4c24,0 8px 25px #26392e08}
+.hero.wrap{width:100%;min-height:100svh;max-height:none;margin:0;padding:125px max(var(--space),calc((100vw - 1440px)/2)) 95px;grid-template-columns:1.1fr 1fr;gap:4%;isolation:isolate;overflow:clip;background:radial-gradient(ellipse at 95% 35%,#d7e5dd77,transparent 62%)}
+.hero-copy{max-width:670px;min-width:0;padding:0}
+.hero h1{font-size:clamp(44px,4.7vw,78px);line-height:1.08;letter-spacing:-.05em;max-width:10.5em}
+.hero-intro{max-width:460px;margin-top:24px;font-size:14px}
+.hero-art{min-height:0;height:clamp(440px,69svh,1000px);max-height:none;width:100%;margin:0;align-self:center}
+.hero-photo{inset:0 26px 0 12px;transform:none;border-radius:47% 47% 40% 40% / 32% 36% 52% 54%}
+.hero-photo img{object-position:50% 55%}
+.hero-orbit{inset:20px 0 -12px -15px;transform:rotate(-8deg)}
+.hero-anatomy{position:absolute;width:clamp(130px,15vw,240px);right:-20px;bottom:30px;mix-blend-mode:multiply;opacity:.62;transform:rotate(-35deg);pointer-events:none}
+.hero-note{bottom:20px;left:-25px}
+.hero .movement-line{right:-5px;bottom:30px}
+.hero-paths{flex-direction:row;max-width:620px;margin-top:34px;padding-top:20px;gap:18px}
+.hero-paths a{min-width:0;min-height:56px}
+.hero-paths a+a{border-left:1px solid #365c4c35;padding-left:18px}
+.hero-paths small{display:block}
+.hero-bottom{inset:auto max(var(--space),calc((100vw - 1440px)/2)) 12px;width:auto;padding:10px 0}
+.hero-actions{gap:18px}
+.advice-photo{overflow:hidden;height:235px}.advice-photo img{height:100%;width:100%;object-fit:cover}
+.parallax{overflow:hidden}.parallax img{animation:none;transform:translate3d(0,var(--parallax-y,0px),0) scale(1.08);transition:none}
+.expertise-card:hover img{transform:translate3d(0,var(--parallax-y,0px),0) scale(1.11);transition:transform 400ms var(--ease)}
+@media(prefers-reduced-motion:no-preference){.hero-copy{animation:hero-enter 650ms var(--ease)}.hero-art{animation:hero-enter 850ms var(--ease)}.movement-line path{stroke-dasharray:900;animation:hero-line 1600ms var(--ease)}@keyframes hero-enter{from{transform:translateY(12px)}to{transform:translateY(0)}}@keyframes hero-line{from{stroke-dashoffset:160}to{stroke-dashoffset:0}}}
+@media(min-width:701px) and (max-width:1050px){.hero.wrap{padding-top:110px;padding-bottom:85px;gap:3%;grid-template-columns:1.1fr 1fr}.hero h1{font-size:clamp(38px,5.3vw,54px)}.hero-art{height:clamp(420px,62svh,740px)}.hero-paths{gap:10px}.hero-paths a+a{padding-left:10px}.hero-paths strong{font-size:11px}.hero-paths small{font-size:8px}.hero-note{padding:18px}.hero-intro{font-size:13px}}
+@media(max-width:700px){
+ .hero.wrap{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(150px,1fr) auto auto;gap:20px;min-height:100svh;padding:90px var(--space) 14px}
+ .hero-art{grid-row:1;order:initial;min-height:150px;height:100%;max-height:300px;max-width:none;width:100%;margin:0}
+ .hero-photo{inset:0 7px;border-radius:48% 48% 28% 28% / 65% 65% 35% 35%}
+ .hero-photo img{object-position:50% 67%}
+ .hero-orbit{inset:8px 0 -5px;transform:rotate(-3deg)}
+ .hero-note,.hero-anatomy,.hero-art .vertical-caption{display:none}
+ .hero .movement-line{height:160px;width:90px;right:0;bottom:-10px}
+ .hero-copy{grid-row:2;display:flex;flex-direction:column;padding:0;max-width:100%}
+ .hero-copy .eyebrow{order:0;font-size:8px;margin:0 0 12px}
+ .hero h1{order:1;font-size:clamp(33px,8.8vw,51px);line-height:1.07;max-width:12em}
+ .hero-intro{order:2;font-size:12px;line-height:1.7;margin-top:14px;max-width:100%}
+ .hero-paths{order:3;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;padding-top:12px;width:100%}
+ .hero-paths a{display:block;min-height:44px;padding:0}.hero-paths a+a{padding-left:12px}.hero-paths strong{font-size:11px}.hero-paths small{font-size:8px;line-height:1.6}
+ .hero-actions{order:4;display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:16px}
+ .hero-actions .button{min-height:46px;padding:10px 16px;font-size:11px;gap:12px}.hero-actions .text-link{font-size:10px;min-height:44px}.hero-actions .text-link svg{display:none}
+ .hero-bottom{position:static;grid-row:3;width:100%;font-size:8px;padding:0 0 6px;min-height:38px;gap:10px}
+ .hero-bottom a{width:38px;height:38px}.hero-bottom>span:last-child{display:none}
+ .advice-photo{height:220px}.js nav{max-height:calc(100svh - 78px);overflow-y:auto}
+}
+@media(max-width:380px){.hero.wrap{padding-top:80px;gap:16px}.hero h1{font-size:32px}.hero-copy .eyebrow{font-size:7px}.hero-intro{font-size:11px}.hero-paths strong{font-size:10px}.hero-paths small{font-size:7px}.hero-art{min-height:130px}.hero-actions{column-gap:12px}.hero-actions .text-link{font-size:9px}.hero-actions .button{padding-inline:12px;font-size:10px;gap:8px}.hero-bottom{font-size:7px}}
+@media(max-height:700px) and (min-width:701px){.hero.wrap{padding-top:110px;padding-bottom:75px}.hero-art{height:440px}.hero h1{font-size:clamp(40px,4.2vw,60px)}.hero-paths{margin-top:22px}}
+@media(prefers-reduced-motion:reduce){.parallax img,.expertise-card:hover img{transform:none!important}.hero-copy,.hero-art{animation:none!important}}
+/* Without JS the complete navigation stays in flow, above the hero. */
+html:not(.js) .home #site-header{position:relative;background:var(--surface)}
+html:not(.js) .hero.wrap{padding-top:35px}
