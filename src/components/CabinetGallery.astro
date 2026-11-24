@@ -20,7 +20,7 @@ const photos = [
   <dialog aria-label="Photos du cabinet">
     <div class="viewer">
       <button class="close" type="button" autofocus>Fermer</button>
-      <img class="full-photo" alt="" />
+      <img class="full-photo" width={photos[0].width} height={photos[0].height} alt="" />
       <div class="controls">
         <button type="button" data-step="-1" aria-label="Photo précédente">←</button>
         <p aria-live="polite" aria-atomic="true"></p>
@@ -42,7 +42,10 @@ const photos = [
       function show(index: number) {
         current = (index + links.length) % links.length;
         const link = links[current];
-        image.alt = link.querySelector('img')!.alt;
+        const thumbnail = link.querySelector('img')!;
+        image.width = Number(thumbnail.getAttribute('width'));
+        image.height = Number(thumbnail.getAttribute('height'));
+        image.alt = thumbnail.alt;
         image.src = link.href;
         caption.textContent = `${current + 1} / ${links.length} · ${link.dataset.title}`;
       }
