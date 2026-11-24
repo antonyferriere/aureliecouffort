@@ -47,11 +47,9 @@ jobs:
 
       - name: Verify deployment destination
         env:
-          FTP_SERVER: ${{ vars.FTP_SERVER }}
-          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_URL: ${{ vars.SITE_URL || secrets.SITE_URL }}
           FTP_DIR: ${{ secrets.FTP_DIR }}
         run: |
-          : "${FTP_SERVER:?Configure FTP_SERVER in PREPROD}"
           if [[ "$SITE_URL" != https://?* ]]; then
             echo "Set SITE_URL to the HTTPS homepage of the PREPROD site."
             exit 1
@@ -65,7 +63,7 @@ jobs:
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0, Node 24
         with:
-          server: ${{ vars.FTP_SERVER }}
+          server: ${{ vars.FTP_SERVER || secrets.FTP_SERVER || 'trigone.o2switch.net' }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
@@ -77,7 +75,7 @@ jobs:
 
       - name: Verify deployed HTTPS site
         env:
-          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_URL: ${{ vars.SITE_URL || secrets.SITE_URL }}
         run: |
           curl --proto '=https' --fail --silent --show-error --max-time 30 --retry 3 \
             --output "$RUNNER_TEMP/preprod-index.html" "$SITE_URL"
