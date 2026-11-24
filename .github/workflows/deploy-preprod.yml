@@ -33,25 +33,29 @@ jobs:
           node-version: "24"
           package-manager-cache: false
 
-      # Le site n'a aucune dépendance npm : aucun npm ci ni cache npm nécessaires.
-      - name: Build and test site
-        env:
-          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
-          ANALYTICS_ENV: ${{ vars.ANALYTICS_ENV }}
-          GA_DEV_MEASUREMENT_ID: ${{ vars.GA_DEV_MEASUREMENT_ID }}
-          GA_DEBUG: ${{ vars.GA_DEBUG }}
-          CONSENT_PREVIEW: ${{ vars.CONSENT_PREVIEW }}
-        run: npm run check
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Verify deployment files
+      - name: Check, build and test Astro
+        env:
+          PUBLIC_INDEXABLE: "false"
         run: |
-          test -f dist/index.html
-          test -f dist/.htaccess
+          npm run check
+          npm run build
+          npm test
+          test -s dist/index.html
 
       - name: Verify deployment destination
         env:
+          FTP_SERVER: ${{ vars.FTP_SERVER }}
+          SITE_URL: ${{ vars.SITE_URL }}
           FTP_DIR: ${{ secrets.FTP_DIR }}
         run: |
+          : "${FTP_SERVER:?Configure FTP_SERVER in PREPROD}"
+          if [[ "$SITE_URL" != https://?* ]]; then
+            echo "Set SITE_URL to the HTTPS homepage of the PREPROD site."
+            exit 1
+          fi
           # Le compte FTP ouvre directement sur le site : sa racine / est autorisée.
           if [[ -z "$FTP_DIR" || "$FTP_DIR" != */ || "$FTP_DIR" == *\\* ]]; then
             echo "FTP_DIR must be non-empty, use forward slashes, and end in /. Use / for the FTP account root."
@@ -61,9 +65,7 @@ jobs:
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0, Node 24
         with:
-          # Nom couvert par le certificat FTPS du serveur o2switch.
-          # L'alias FTP précédent provoquait ERR_TLS_CERT_ALTNAME_INVALID.
-          server: trigone.o2switch.net
+          server: ${{ vars.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
@@ -75,5 +77,8 @@ jobs:
 
       - name: Verify deployed HTTPS site
         env:
-          DEPLOY_URL: https://christinebrethes.antonyferriere.fr/
-        run: node scripts/verify-deployment.mjs "$DEPLOY_URL"
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          curl --proto '=https' --fail --silent --show-error --max-time 30 --retry 3 \
+            --output "$RUNNER_TEMP/preprod-index.html" "$SITE_URL"
+          cmp dist/index.html "$RUNNER_TEMP/preprod-index.html"
