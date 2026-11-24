@@ -21,7 +21,7 @@ Desktop >1050 px : navigation horizontale, hero et sections sur deux colonnes. T
 Entrée courte au scroll par IntersectionObserver, aucun texte caché. Header sticky avec teinte et flou modéré après 24 px. Photos des expertises : déplacement borné via scroll-driven animations avec fallback statique. Hover photo des cartes. Pas de boucle requestAnimationFrame ; scroll header limité à une frame. Reduced motion désactive toutes animations et transitions ; parallaxe absente en mobile.
 
 ## Identité
-Neuf SVG (horizontal, vertical, monogramme × sauge, graphite, monochrome), favicon simplifié SVG + PNG 16/32/48/180. À remplacer après validation d’Aurélie. Les fichiers SVG logo utilisent des polices de repli pour le texte : convertir en contours lors de la finalisation imprimerie.
+Le logo se compose uniquement des initiales AC. Les trois cadrages SVG (horizontal, vertical et monogramme) existent en sauge, graphite et monochrome. Le favicon reprend les mêmes tracés en ivoire sur fond sauge, aux formats SVG et PNG (16, 32, 48 et 180 px).
 
 
 ## Ajustements du 17 novembre 2026

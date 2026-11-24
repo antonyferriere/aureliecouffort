@@ -1,10 +1,15 @@
 import {writeFileSync} from 'node:fs';
-const mark = '<path d="M8 49 24 12l16 37M15 35h18M46 20c-19-13-33 23-13 29 5 1 10-1 14-4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M28 12c-1 11-1 18 3 24 4 5 3 12-3 15-5 3-12 0-10-4" fill="none" stroke="currentColor" stroke-width="1.3"/>';
-for (const [name,color] of [['sauge','#365c4c'],['graphite','#2c2a28'],['monochrome','#000000']]) {
- for(const [layout,width,height,body] of [
- ['monogramme',58,64,mark],
- ['horizontal',340,70,`${mark}<text x="72" y="30" font-family="Georgia,serif" font-size="25" fill="currentColor">Aurélie Couffort</text><text x="73" y="49" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.4" fill="currentColor">PÉDICURE-PODOLOGUE</text>`],
- ['vertical',260,150,`<g transform="translate(101,0)">${mark}</g><text x="130" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="currentColor">Aurélie Couffort</text><text x="130" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.2" fill="currentColor">PÉDICURE-PODOLOGUE</text>`],
- ]) writeFileSync(`public/logos/${layout}-${name}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" style="color:${color}">${body}</svg>`);
+
+const mark = '<path d="M0 32 12 1H17L29 32H23.6L20.2 23H8.7L5.3 32ZM10.3 18.5H18.6L14.4 7.3ZM55.5 5.7 52.3 9C50 6.5 47.5 5 44 5 37.7 5 33.6 9.6 33.6 16.5S37.7 28 44 28C47.5 28 50.3 26.4 52.6 23.8L56 27C52.8 30.8 48.8 32.7 43.8 32.7 34.8 32.7 28.6 26.1 28.6 16.5S34.8.3 43.8.3C48.8.3 52.7 2.2 55.5 5.7Z"/>';
+const palette = {sauge: '#365c4c', graphite: '#2c2a28', monochrome: '#000000'};
+const frames = {monogramme: '-2 -2 60 37', horizontal: '-8 -4 72 41', vertical: '-4 -16 64 65'};
+
+for (const [name, color] of Object.entries(palette)) {
+  for (const [layout, viewBox] of Object.entries(frames)) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" fill="${color}">${mark}</svg>\n`;
+    writeFileSync(`public/logos/${layout}-${name}.svg`, svg);
+  }
 }
-writeFileSync('public/favicon.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#365c4c"/><path d="M12 48 27 15l14 33M19 34h15M50 20c-19-13-30 20-13 27 5 2 9 0 13-4" fill="none" stroke="#f6f1ea" stroke-width="3" stroke-linecap="round"/></svg>');
+
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="${palette.sauge}"/><g transform="translate(4 15.5)" fill="#f6f1ea">${mark}</g></svg>\n`;
+writeFileSync('public/favicon.svg', favicon);

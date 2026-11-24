@@ -54,6 +54,6 @@ html:not(.js) .hero.wrap{padding-top:35px}
 .contact-status .button{margin-top:18px;background:var(--primary-container);color:var(--primary)}.contact-status .button:hover{background:#fff}.faq-groups details .text-link{margin-bottom:20px;color:var(--primary)}
 
 .career{margin:25px 0;font-size:13px}.career>div{display:grid;grid-template-columns:90px 1fr;gap:15px;border-top:1px solid #365c4c30;padding:15px 0}.career dt{color:var(--primary);font-weight:600}.career dd{margin:0}.career dd span{display:block;font-size:12px;color:var(--muted)}.practitioner-facts{font-size:12px}.footer-top address{font-style:normal;font-size:12px}.footer-top address a{text-decoration:underline}.footer-top address small{font-size:10px}
-@media(min-width:1051px){nav{gap:18px}nav>a:not(.button){font-size:12px}.header-inner{gap:18px}.brand{font-size:21px}}
+@media(min-width:1051px){nav{gap:18px}nav>a:not(.button){font-size:12px}.header-inner{gap:18px}}
 @media(min-width:1151px){.services{grid-template-columns:repeat(3,1fr)}}
 .legal p a{color:var(--primary);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
