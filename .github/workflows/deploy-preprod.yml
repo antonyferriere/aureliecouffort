@@ -114,6 +114,8 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL || secrets.SITE_URL }}
         run: |
-          curl --proto '=https' --fail --silent --show-error --max-time 30 --retry 3 \
+          curl --proto '=https' --proto-redir '=https' --location --fail --silent --show-error \
+            --max-time 30 --retry 3 --get --data-urlencode "revision=$GITHUB_SHA" \
+            --write-out 'Homepage HTTP %{http_code}, redirects %{num_redirects}\n' \
             --output "$RUNNER_TEMP/preprod-index.html" "$SITE_URL"
           cmp dist/index.html "$RUNNER_TEMP/preprod-index.html"
