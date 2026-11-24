@@ -66,6 +66,29 @@ jobs:
             exit 1
           fi
 
+      - name: Verify FTPS certificate chain
+        env:
+          FTP_PORT: ${{ secrets.FTP_PORT || 21 }}
+        run: |
+          cd "$RUNNER_TEMP"
+          timeout 20 openssl s_client -starttls ftp -connect "$FTP_SERVER:$FTP_PORT" \
+            -servername "$FTP_SERVER" -showcerts </dev/null > ftps-chain.pem
+          openssl x509 -in ftps-chain.pem -out ftps-leaf.pem
+          if openssl verify -purpose sslserver -verify_hostname "$FTP_SERVER" ftps-leaf.pem; then
+            exit 0
+          fi
+          # Some FTPS servers omit the issuing intermediate. Authenticate it against Ubuntu's roots.
+          issuer_url=$(openssl x509 -in ftps-leaf.pem -noout -ext authorityInfoAccess |
+            sed -n 's/.*CA Issuers - URI://p' | head -n 1)
+          curl --proto '=http,https' --fail --silent --show-error --max-time 20 \
+            --output ftps-issuer.crt "$issuer_url"
+          openssl x509 -inform DER -in ftps-issuer.crt -out ftps-issuer.pem ||
+            openssl x509 -in ftps-issuer.crt -out ftps-issuer.pem
+          openssl verify ftps-issuer.pem
+          openssl verify -purpose sslserver -verify_hostname "$FTP_SERVER" \
+            -untrusted ftps-issuer.pem ftps-leaf.pem
+          echo "NODE_EXTRA_CA_CERTS=$RUNNER_TEMP/ftps-issuer.pem" >> "$GITHUB_ENV"
+
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0, Node 24
         env:
