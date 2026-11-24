@@ -77,17 +77,23 @@ jobs:
           if openssl verify -purpose sslserver -verify_hostname "$FTP_SERVER" ftps-leaf.pem; then
             exit 0
           fi
-          # Some FTPS servers omit the issuing intermediate. Authenticate it against Ubuntu's roots.
-          issuer_url=$(openssl x509 -in ftps-leaf.pem -noout -ext authorityInfoAccess |
-            sed -n 's/.*CA Issuers - URI://p' | head -n 1)
-          curl --proto '=http,https' --fail --silent --show-error --max-time 20 \
-            --output ftps-issuer.crt "$issuer_url"
-          openssl x509 -inform DER -in ftps-issuer.crt -out ftps-issuer.pem ||
-            openssl x509 -in ftps-issuer.crt -out ftps-issuer.pem
-          openssl verify ftps-issuer.pem
-          openssl verify -purpose sslserver -verify_hostname "$FTP_SERVER" \
-            -untrusted ftps-issuer.pem ftps-leaf.pem
-          echo "NODE_EXTRA_CA_CERTS=$RUNNER_TEMP/ftps-issuer.pem" >> "$GITHUB_ENV"
+          # Complete the chain, trusting only roots already installed on the runner.
+          cp ftps-leaf.pem current.pem
+          for depth in 1 2 3 4; do
+            issuer_url=$(openssl x509 -in current.pem -noout -ext authorityInfoAccess |
+              sed -n 's/.*CA Issuers - URI://p' | head -n 1)
+            curl --proto '=http,https' --fail --silent --show-error --max-time 20 \
+              --output issuer.crt "$issuer_url"
+            openssl x509 -inform DER -in issuer.crt -out current.pem ||
+              openssl x509 -in issuer.crt -out current.pem
+            cat current.pem >> issuers.pem
+            if openssl verify -purpose sslserver -verify_hostname "$FTP_SERVER" \
+                -untrusted issuers.pem ftps-leaf.pem; then
+              echo "NODE_EXTRA_CA_CERTS=$RUNNER_TEMP/issuers.pem" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          exit 1
 
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0, Node 24
