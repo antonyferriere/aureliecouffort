@@ -37,7 +37,22 @@ Les expertises sont des données et un composant réutilisables pour de futures 
 
 Les liens de rendez-vous sont centralisés dans `src/data/site.ts` et pointent vers la réservation Doctolib. Les coordonnées, tarifs, horaires, accès et qualifications proviennent des pièces fournies le 17 novembre 2026. Les informations non documentées restent à confirmer. Ne pas collecter de données de santé via un formulaire générique.
 
-Le host `terminal.local` est autorisé uniquement dans la configuration de développement pour l’aperçu de travail. Aucun déploiement automatique ni workflow FTP n’est ajouté.
+Le host `terminal.local` est autorisé uniquement dans la configuration de développement pour l’aperçu de travail.
+
+## Déploiement en préproduction
+
+Un push sur `preprod` lance le build Astro et ses tests, publie `dist/` via FTPS explicite, puis compare la page d’accueil HTTPS au fichier construit. Le build conserve l’indexation désactivée.
+
+Dans l’environnement GitHub `PREPROD`, renseigner les paramètres suivants.
+
+| Type | Nom | Valeur |
+| --- | --- | --- |
+| Variable | `FTP_SERVER` | Nom d’hôte FTPS fourni par o2switch, sans protocole ni port. Le certificat doit couvrir ce nom. |
+| Variable | `SITE_URL` | URL HTTPS finale de la page d’accueil de préproduction d’Aurélie. |
+| Secret | `FTP_USERNAME` | Identifiant complet du compte dédié. |
+| Secret | `FTP_PASSWORD` | Mot de passe du compte. |
+| Secret | `FTP_DIR` | Dossier distant terminé par `/`. Utiliser `/` si le compte est déjà limité au dossier du site. |
+| Secret facultatif | `FTP_PORT` | Port FTPS explicite, par défaut `21`. |
 
 ## Documents
 - DESIGN_SYSTEM.md : palette, composants, mobile et motion.
