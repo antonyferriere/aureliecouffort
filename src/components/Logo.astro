@@ -1,1 +1,12 @@
-<img class="brand" src="/logos/monogramme-sauge.svg" width="60" height="37" alt="" />
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+<span class="brand">
+  <img src="/logos/monogramme-sauge.svg" width="47" height="52" alt="" />
+  {!compact && (
+    <span>Aurélie Couffort<small>PÉDICURE-PODOLOGUE</small></span>
+  )}
+</span>
