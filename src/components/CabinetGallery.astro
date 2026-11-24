@@ -6,14 +6,122 @@ const photos = [
 ];
 ---
 <div class="cabinet-intro"><p class="eyebrow">Bienvenue au cabinet</p><h2>Un lieu pour vous accueillir,<br/><em>prendre le temps d’échanger.</em></h2></div>
-<div class="cabinet-gallery">
-  {photos.map(photo=><figure>
-    <a href={`/images/${photo.name}-${photo.width}.webp`} target="_blank" rel="noopener noreferrer" aria-label={`Agrandir : ${photo.title} (nouvel onglet)`}>
-      <img src={`/images/${photo.name}-${photo.width}.webp`} srcset={`/images/${photo.name}-480.webp 480w, /images/${photo.name}-${photo.width}.webp ${photo.width}w`} sizes="(max-width:700px) 90vw, 40vw" width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async"/>
-    </a><figcaption>{photo.title}<span>Voir la photo ↗</span></figcaption>
-  </figure>)}
-</div>
+<cabinet-gallery>
+  <div class="cabinet-gallery">
+    {photos.map(photo => (
+      <a href={`/images/${photo.name}-${photo.width}.webp`} aria-haspopup="dialog" data-title={photo.title}>
+        <figure>
+          <img src={`/images/${photo.name}-${photo.width}.webp`} srcset={`/images/${photo.name}-480.webp 480w, /images/${photo.name}-${photo.width}.webp ${photo.width}w`} sizes="(max-width:700px) 90vw, 40vw" width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async"/>
+          <figcaption>{photo.title}<span>Voir la photo</span></figcaption>
+        </figure>
+      </a>
+    ))}
+  </div>
+  <dialog aria-label="Photos du cabinet">
+    <div class="viewer">
+      <button class="close" type="button" autofocus>Fermer</button>
+      <img class="full-photo" width={photos[0].width} height={photos[0].height} alt="" />
+      <div class="controls">
+        <button type="button" data-step="-1" aria-label="Photo précédente">←</button>
+        <p aria-live="polite" aria-atomic="true"></p>
+        <button type="button" data-step="1" aria-label="Photo suivante">→</button>
+      </div>
+    </div>
+  </dialog>
+</cabinet-gallery>
+
+<script>
+  class CabinetGallery extends HTMLElement {
+    connectedCallback() {
+      const links = Array.from(this.querySelectorAll('a'));
+      const dialog = this.querySelector('dialog')!;
+      const image = dialog.querySelector('img')!;
+      const caption = dialog.querySelector('p')!;
+      let current = 0;
+
+      function show(index: number) {
+        current = (index + links.length) % links.length;
+        const link = links[current];
+        const thumbnail = link.querySelector('img')!;
+        image.width = Number(thumbnail.getAttribute('width'));
+        image.height = Number(thumbnail.getAttribute('height'));
+        image.alt = thumbnail.alt;
+        image.src = link.href;
+        caption.textContent = `${current + 1} / ${links.length} · ${link.dataset.title}`;
+      }
+
+      links.forEach((link, index) => {
+        link.onclick = (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          show(index);
+          dialog.showModal();
+        };
+      });
+
+      dialog.querySelector<HTMLButtonElement>('.close')!.onclick = () => dialog.close();
+      dialog.querySelectorAll<HTMLButtonElement>('[data-step]').forEach(button => {
+        button.onclick = () => show(current + Number(button.dataset.step));
+      });
+      dialog.onkeydown = (event) => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          show(current + (event.key === 'ArrowLeft' ? -1 : 1));
+        }
+      };
+      dialog.onclick = (event) => {
+        if (event.target === dialog) dialog.close();
+      };
+    }
+  }
+  customElements.define('cabinet-gallery', CabinetGallery);
+</script>
+
 <style>
-.cabinet-intro{margin-bottom:35px}.cabinet-gallery{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-bottom:50px;align-items:start}.cabinet-gallery figure:first-child{grid-row:span 2}.cabinet-gallery figure{overflow:hidden;border:1px solid #365c4c25;border-radius:16px;background:var(--surface-container)}.cabinet-gallery a{display:block;overflow:hidden}.cabinet-gallery img{width:100%;height:240px;object-fit:contain;background:#e7e9df}.cabinet-gallery figure:first-child img{height:570px;object-fit:cover}.cabinet-gallery figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;font-size:12px;color:var(--primary)}.cabinet-gallery figcaption span{font-size:10px;white-space:nowrap}.cabinet-gallery a:focus-visible{outline-offset:-5px}.cabinet-gallery a:hover img{filter:brightness(1.04)}
-@media(max-width:700px){.cabinet-gallery{grid-template-columns:1fr;gap:20px;margin-bottom:30px}.cabinet-gallery figure:first-child{grid-row:auto}.cabinet-gallery figure:first-child img{height:auto;max-height:480px;object-fit:contain}.cabinet-gallery img{height:auto;max-height:360px}.cabinet-gallery figcaption{padding:12px;font-size:11px}}
+cabinet-gallery { display: block }
+.cabinet-intro{margin-bottom:35px}.cabinet-gallery{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-bottom:50px;align-items:start}.cabinet-gallery a:first-child{grid-row:span 2}.cabinet-gallery figure{margin:0;overflow:hidden;border:1px solid #365c4c25;border-radius:16px;background:var(--surface-container)}.cabinet-gallery a{display:block;overflow:hidden;border-radius:16px;text-decoration:none}.cabinet-gallery img{width:100%;height:240px;object-fit:contain;background:#e7e9df}.cabinet-gallery a:first-child img{height:570px;object-fit:cover}.cabinet-gallery figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;font-size:12px;color:var(--primary)}.cabinet-gallery figcaption span{font-size:10px;white-space:nowrap}.cabinet-gallery a:focus-visible{outline-offset:-5px}.cabinet-gallery a:hover img{filter:brightness(1.04)}
+@media(max-width:700px){.cabinet-gallery{grid-template-columns:1fr;gap:20px;margin-bottom:30px}.cabinet-gallery a:first-child{grid-row:auto}.cabinet-gallery a:first-child img{height:auto;max-height:480px;object-fit:contain}.cabinet-gallery img{height:auto;max-height:360px}.cabinet-gallery figcaption{padding:12px;font-size:11px}}
+
+dialog {
+  width: min(56rem, calc(100% - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  color: var(--primary);
+  background: var(--surface-container);
+}
+dialog::backdrop { background: rgb(15 30 24 / .82) }
+:global(html:has(cabinet-gallery dialog[open])) { overflow: hidden }
+.viewer {
+  box-sizing: border-box;
+  height: min(48rem, calc(100dvh - 2rem));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: .5rem;
+  padding: .75rem;
+}
+.full-photo { width: 100%; height: 100%; object-fit: contain }
+.controls { display: flex; align-items: center; justify-content: space-between; gap: .5rem }
+.controls p { margin: 0; text-align: center }
+.viewer button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid currentColor;
+  border-radius: 2rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.close { justify-self: end; padding-inline: 1rem }
+@media (max-width: 700px) {
+  dialog { width: 100%; max-height: 100dvh; border-radius: 0 }
+  .viewer {
+    height: 100dvh;
+    padding: max(.75rem, env(safe-area-inset-top)) .75rem max(.75rem, env(safe-area-inset-bottom));
+  }
+}
 </style>
